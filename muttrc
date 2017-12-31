@@ -1,6 +1,6 @@
 # Identity
 set realname="Kirk Halyk"
-set from="Kirk Halyk <kirk@halyk.io>"
+set from="Kirk Halyk <me@domain.com>"
 
 # TLS
 set ssl_starttls=yes
@@ -9,7 +9,7 @@ set ssl_use_tlsv1=no
 set ssl_use_tlsv1_1=no
 
 # IMAP
-set imap_user="kirk@halyk.io"
+set imap_user="me@domain.com"
 set imap_keepalive=30
 unset imap_passive
 
@@ -34,7 +34,7 @@ auto_view text/html
 set pipe_decode
 
 # Outgoing
-set smtp_url="smtps://kirk@halyk.io@smtp.gmail.com:465/"
+set smtp_url="smtps://me@domain.com@smtp.gmail.com:465/"
 
 # Contact management
 set alias_file=""~/.mutt/aliases"
