@@ -1,0 +1,130 @@
+# Identity
+set realname="Kirk Halyk"
+set from="Kirk Halyk <kirk@halyk.io>"
+
+# TLS
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set ssl_use_tlsv1=no
+set ssl_use_tlsv1_1=no
+
+# IMAP
+set imap_user="kirk@halyk.io"
+set imap_keepalive=30
+unset imap_passive
+
+# Mail format
+set folder="imaps://imap.gmail.com:993"
+set spoolfile="+INBOX"
+set postponed="+[Gmail]/Drafts"
+set header_cache=~/.mutt/headers
+set message_cachedir=~/.mutt/bodies
+set certificate_file=~/.mutt/certificates
+set move=no
+
+# Editor
+set editor='vim +/^$ "+setlocal fo+=w spell" +noh'
+set edit_headers
+set text_flowed
+set tmpdir="~/"
+
+# Message formatting
+alternative_order text/plain text/html
+auto_view text/html
+set pipe_decode
+
+# Outgoing
+set smtp_url="smtps://kirk@halyk.io@smtp.gmail.com:465/"
+
+# Contact management
+set alias_file=""~/.mutt/aliases"
+set sort_alias=alias
+set reverse_alias=yes
+set reverse_name=yes
+source $alias_file
+
+# Index interface
+set mail_check=5
+set timeout=10
+unset mark_old
+set thorough_search
+set quit
+set menu_scroll
+set include
+set fast_reply
+bind index G last-entry
+bind index gg first-entry
+bind index R group-reply
+bind index <space> collapse-thread
+bind index V collapse-all
+bind index \cU half-up
+bind index \cD half-down
+bind index \cB previous-page
+bind index \cF next-page
+macro index d "<save-message>=trash<enter>"
+macro index a "<limit>~A<enter>"
+macro index i "<limit>~U | ~F<enter>"
+macro index I "<limit>~U<enter>"
+set sort="threads"
+set sort_aux="reverse-last-date-received"
+set strict_threads
+set narrow_tree
+unset confirmappend
+unset collapse_unread
+unset help
+set delete="yes"
+
+# mu search
+unset wait_key
+macro index S "<save-message>"
+macro index s "<shell-escape>mufind "
+macro index gs "<change-folder-readonly>~/.search<enter>"
+
+# Index style
+set date_format="%Y-%m-%d"
+set index_format="%D %Z %-15.15L %s"
+color status brightgreen blue
+
+# Message style
+#color search black white
+
+# Pager interface
+set pager_stop
+unset markers
+bind pager gg top
+bind pager G bottom
+bind pager R group-reply
+bind pager j next-line
+bind pager k previous-line
+bind pager \Cu half-up
+bind pager \Cd half-down
+bind pager \Cf next-page
+bind pager \Cb previous-page
+bind pager <space> next-page
+bind pager <backspace> previous-page
+macro pager d "<save-message>=trash<enter>"
+
+# Editor interface
+bind editor <space> noop
+
+# S/MIME
+set smime_default_key="3afbb9b3.0"
+set smime_is_default="yes"
+set crypt_autosmime="yes"
+set pgp_autosign="no"
+set smime_timeout="300"
+set crypt_autosign="yes"
+set crypt_replyencrypt="yes"
+set crypt_replysign="yes"
+set crypt_replysignencrypted="yes"
+set crypt_verify_sig="yes"
+set smime_ca_location="/etc/ssl/certs"
+set smime_verify_command="openssl smime -verify -inform DER -in %s %C -content %f"
+set smime_verify_opaque_command="openssl smime -verify -inform DER -in %s %C || openssl smime -verify -inform DER -in %s -noverify 2>/dev/null"
+set smime_pk7out_command="openssl smime -verify -in %f -noverify -pk7out"
+set smime_get_cert_command="openssl pkcs7 -print_certs -in %f"
+set smime_get_signer_cert_command="openssl smime -verify -in %f -noverify -signer %c -out /dev/null"
+set smime_get_cert_email_command="openssl x509 -in  %f -noout -email"
+set smime_import_cert_command="smime_keys add_cert %f"
+
+push <show-version>
