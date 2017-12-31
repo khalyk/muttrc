@@ -77,8 +77,12 @@ set delete="yes"
 # mu search
 unset wait_key
 macro index S "<save-message>"
-macro index s "<shell-escape>rm -rf ~/.mu/results; mu find -o l -l ~/.mu/results " "mu find"
-macro index gs "<change-folder-readonly>~/.mu/results\n" "display mu find results"
+# need to setup INBOX index via mu for this to work...
+macro index s "<shell-escape>mu find -c -l ~/.mu/results "
+macro index gs "<change-folder-readonly>~/.mu/results\n"
+
+# Address query
+set query_command="mu cfind --format=mutt-ab '%s'"
 
 # Index style
 set date_format="%Y-%m-%d"
