@@ -11,7 +11,6 @@ set ssl_use_tlsv1_1=no
 # IMAP
 set imap_user="me@domain.com"
 set imap_keepalive=30
-set imap_pass=""
 unset imap_passive
 
 # Mail format
@@ -36,7 +35,6 @@ set pipe_decode
 
 # Outgoing
 set smtp_url="smtps://me@domain.com@smtp.gmail.com:465/"
-set smtp_pass=""
 
 # Contact management
 set alias_file=""~/.mutt/aliases"
