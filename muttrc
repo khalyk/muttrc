@@ -11,6 +11,7 @@ set ssl_use_tlsv1_1=no
 # IMAP
 set imap_user="me@domain.com"
 set imap_keepalive=30
+set imap_pass=""
 unset imap_passive
 
 # Mail format
@@ -35,6 +36,7 @@ set pipe_decode
 
 # Outgoing
 set smtp_url="smtps://me@domain.com@smtp.gmail.com:465/"
+set smtp_pass=""
 
 # Contact management
 set alias_file=""~/.mutt/aliases"
@@ -77,8 +79,8 @@ set delete="yes"
 # mu search
 unset wait_key
 macro index S "<save-message>"
-macro index s "<shell-escape>mufind "
-macro index gs "<change-folder-readonly>~/.search<enter>"
+macro index s "<shell-escape>rm -rf ~/.mu/results; mu find -o l -l ~/.mu/results " "mu find"
+macro index gs "<change-folder-readonly>~/.mu/results\n" "display mu find results"
 
 # Index style
 set date_format="%Y-%m-%d"
