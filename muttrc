@@ -36,6 +36,9 @@ set pipe_decode
 # Outgoing
 set smtp_url="smtps://me@domain.com@smtp.gmail.com:465/"
 
+# Trash
+set trash = "imaps://me@domain.com@imap.gmail.com/[Gmail]/Trash"
+
 # Contact management
 set alias_file=""~/.mutt/aliases"
 set sort_alias=alias
@@ -52,19 +55,6 @@ set quit
 set menu_scroll
 set include
 set fast_reply
-bind index G last-entry
-bind index gg first-entry
-bind index R group-reply
-bind index <space> collapse-thread
-bind index V collapse-all
-bind index \cU half-up
-bind index \cD half-down
-bind index \cB previous-page
-bind index \cF next-page
-macro index d "<save-message>=trash<enter>"
-macro index a "<limit>~A<enter>"
-macro index i "<limit>~U | ~F<enter>"
-macro index I "<limit>~U<enter>"
 set sort="threads"
 set sort_aux="reverse-last-date-received"
 set strict_threads
@@ -74,27 +64,35 @@ unset collapse_unread
 unset help
 set delete="yes"
 
-# mu search
-unset wait_key
-macro index S "<save-message>"
-# need to setup INBOX index via mu for this to work...
-macro index s "<shell-escape>mu find -c -l ~/.mu/results "
-macro index gs "<change-folder-readonly>~/.mu/results\n"
-
-# Address query
-set query_command="mu cfind --format=mutt-ab '%s'"
-
 # Index style
 set date_format="%Y-%m-%d"
 set index_format="%D %Z %-15.15L %s"
-color status brightgreen blue
-
-# Message style
-#color search black white
 
 # Pager interface
 set pager_stop
 unset markers
+
+# Editor interface
+bind editor <space> noop
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+
+bind index G last-entry
+bind index gg first-entry
+bind index R group-reply
+bind index <space> collapse-thread
+bind index V collapse-all
+bind index \cU half-up
+bind index \cD half-down
+bind index \cB previous-page
+bind index \cF next-page
+macro index a "<limit>~A<enter>"
+macro index i "<limit>~U | ~F<enter>"
+macro index I "<limit>~U<enter>"
 bind pager gg top
 bind pager G bottom
 bind pager R group-reply
@@ -106,10 +104,6 @@ bind pager \Cf next-page
 bind pager \Cb previous-page
 bind pager <space> next-page
 bind pager <backspace> previous-page
-macro pager d "<save-message>=trash<enter>"
-
-# Editor interface
-bind editor <space> noop
 
 # S/MIME
 set smime_default_key="3afbb9b3.0"
