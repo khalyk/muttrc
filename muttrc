@@ -72,38 +72,31 @@ set index_format="%D %Z %-15.15L %s"
 set pager_stop
 unset markers
 
-# Editor interface
 bind editor <space> noop
-macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
-macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
-macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
-macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
-macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
-
-bind index G last-entry
-bind index gg first-entry
-bind index R group-reply
-bind index <space> collapse-thread
-bind index V collapse-all
-bind index \cU half-up
-bind index \cD half-down
-bind index \cB previous-page
-bind index \cF next-page
-macro index a "<limit>~A<enter>"
-macro index i "<limit>~U | ~F<enter>"
-macro index I "<limit>~U<enter>"
-bind pager gg top
-bind pager G bottom
-bind pager R group-reply
-bind pager j next-line
-bind pager k previous-line
-bind pager \Cu half-up
-bind pager \Cd half-down
-bind pager \Cf next-page
-bind pager \Cb previous-page
-bind pager <space> next-page
-bind pager <backspace> previous-page
+bind index,pager c mail
+macro index,pager e "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+bind generic x tag-entry
+bind index x tag-thread
+bind pager x tag-message
+bind index,pager s flag-message
+macro index,pager + "<save-message>=[Gmail]/Important<enter><enter>" "Mark as important"
+macro index,pager ! "<save-message>=[Gmail]/Spam<enter><enter>" "Report spam"
+bind index,pager a group-reply
+bind index,pager \# delete-thread
+bind index,pager l copy-message
+bind index,pager v save-message
+macro index,pager I "<set-flag>O" "Mark as read"
+macro index,pager U "<clear-flag>O" "Mark as unread"
+macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>"  "Go to 'Starred'"
+macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>"   "Go to 'Drafts'"
+macro index,pager gl "<change-folder>?" "Go to 'Label'"
+macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager gt "<change-folder>=[Gmail]/Sent Mail<enter>"	"Go to 'Sent Mail'"
+folder-hook +INBOX macro index,pager y "e" "Archive"
+folder-hook "+[Gmail]/Trash" macro index,pager y "<save-message>=INBOX<enter><enter>" "Move to inbox"
+folder-hook "+[Gmail]/Starred" bind index,pager y flag-message #"Toggle star"
+set to_chars = " +>-<L"
 
 # S/MIME
 set smime_default_key="3afbb9b3.0"
