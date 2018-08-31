@@ -1,0 +1,55 @@
+# Identity
+set realname="$ME"
+set from="$ME <$MAIL_ACCT_2>"
+
+# Passwords
+source "gpg -d ~/.mutt/$MAIL_ACCT_2/passwords.gpg |"
+
+# IMAP
+set imap_user="$MAIL_ACCT_2"
+set imap_keepalive=30
+unset imap_passive
+
+# Mail format
+set folder="imaps://imap.gmail.com:993"
+set spoolfile="+INBOX"
+set postponed="+[Gmail]/Drafts"
+set header_cache="~/.mutt/$MAIL_ACCT_2/headers"
+set message_cachedir="~/.mutt/$MAIL_ACCT_2/bodies"
+set certificate_file="~/.mutt/$MAIL_ACCT_2/certificates"
+set move=no
+
+# Outgoing
+set smtp_url="smtps://$MAIL_ACCT_2@smtp.gmail.com:465/"
+
+# Trash
+set trash = "imaps://$MAIL_ACCT_2@imap.gmail.com/[Gmail]/Trash"
+
+# Contact management
+set alias_file="~/.mutt/$MAIL_ACCT_2/aliases"
+set sort_alias=alias
+set reverse_alias=yes
+set reverse_name=yes
+source $alias_file
+
+# S/MIME
+unset smime_default_key
+unset smime_is_default
+unset crypt_autosmime
+set pgp_autosign="no"
+unset smime_timeout
+set crypt_autosign="no"
+set crypt_replyencrypt="no"
+set crypt_replysign="no"
+set crypt_replysignencrypted="no"
+set crypt_verify_sig="yes"
+set smime_ca_location="/etc/ssl/certs"
+set smime_verify_command="openssl smime -verify -inform DER -in %s %C -content %f"
+set smime_verify_opaque_command="openssl smime -verify -inform DER -in %s %C || openssl smime -verify -inform DER -in %s -noverify 2>/dev/null"
+set smime_pk7out_command="openssl smime -verify -in %f -noverify -pk7out"
+set smime_get_cert_command="openssl pkcs7 -print_certs -in %f"
+set smime_get_signer_cert_command="openssl smime -verify -in %f -noverify -signer %c -out /dev/null"
+set smime_get_cert_email_command="openssl x509 -in  %f -noout -email"
+set smime_import_cert_command="smime_keys add_cert %f"
+
+push <show-version>

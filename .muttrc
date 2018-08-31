@@ -1,26 +1,23 @@
-# Identity
-set realname="Me"
-set from="me <me@me.com>"
+# .muttrc
+
+# Folder hooks
+folder-hook "$MAIL_ACCT_1" 'source ~/.mutt/$MAIL_ACCT_1/muttrc'
+folder-hook "$MAIL_ACCT_2" 'source ~/.mutt/$MAIL_ACCT_2/muttrc'
+
+# Default account
+source ~/.mutt/$MAIL_ACCT_1/muttrc
+
+# Macros for switching accounts
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/$MAIL_ACCT_1/muttrc<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/$MAIL_ACCT_2/muttrc<enter><change-folder>!<enter>'
+
+# Common configuration options
 
 # TLS
 set ssl_starttls=yes
 set ssl_force_tls=yes
 set ssl_use_tlsv1=no
 set ssl_use_tlsv1_1=no
-
-# IMAP
-set imap_user="me@me.com"
-set imap_keepalive=30
-unset imap_passive
-
-# Mail format
-set folder="imaps://imap.gmail.com:993"
-set spoolfile="+INBOX"
-set postponed="+[Gmail]/Drafts"
-set header_cache=~/.mutt/headers
-set message_cachedir=~/.mutt/bodies
-set certificate_file=~/.mutt/certificates
-set move=no
 
 # Editor
 set editor='vim +/^$ "+setlocal fo+=w spell" +noh'
@@ -32,20 +29,6 @@ set tmpdir="~/"
 alternative_order text/plain text/html
 auto_view text/html
 set pipe_decode
-
-# Outgoing
-set smtp_url="smtps://me@me.com@smtp.gmail.com:465/"
-set smtp_pass=""
-
-# Trash
-set trash = "imaps://me@me.com@imap.gmail.com/[Gmail]/Trash"
-
-# Contact management
-set alias_file=""~/.mutt/aliases"
-set sort_alias=alias
-set reverse_alias=yes
-set reverse_name=yes
-source $alias_file
 
 # Index interface
 set mail_check=5
@@ -93,30 +76,8 @@ macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to 'Starred'"
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to 'Drafts'"
 macro index,pager gl "<change-folder>?" "Go to 'Label'"
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
-macro index,pager gt "<change-folder>=[Gmail]/Sent Mail<enter>"	"Go to 'Sent Mail'"
+macro index,pager gt "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to 'Sent Mail'"
 folder-hook +INBOX macro index,pager y "e" "Archive"
 folder-hook "+[Gmail]/Trash" macro index,pager y "<save-message>=INBOX<enter><enter>" "Move to inbox"
 folder-hook "+[Gmail]/Starred" bind index,pager y flag-message #"Toggle star"
 set to_chars = " +>-<L"
-
-# S/MIME
-set smime_default_key="3afbb9b3.0"
-set smime_is_default="yes"
-set crypt_autosmime="yes"
-set pgp_autosign="no"
-set smime_timeout="300"
-set crypt_autosign="yes"
-set crypt_replyencrypt="yes"
-set crypt_replysign="yes"
-set crypt_replysignencrypted="yes"
-set crypt_verify_sig="yes"
-set smime_ca_location="/etc/ssl/certs"
-set smime_verify_command="openssl smime -verify -inform DER -in %s %C -content %f"
-set smime_verify_opaque_command="openssl smime -verify -inform DER -in %s %C || openssl smime -verify -inform DER -in %s -noverify 2>/dev/null"
-set smime_pk7out_command="openssl smime -verify -in %f -noverify -pk7out"
-set smime_get_cert_command="openssl pkcs7 -print_certs -in %f"
-set smime_get_signer_cert_command="openssl smime -verify -in %f -noverify -signer %c -out /dev/null"
-set smime_get_cert_email_command="openssl x509 -in  %f -noout -email"
-set smime_import_cert_command="smime_keys add_cert %f"
-
-push <show-version>
