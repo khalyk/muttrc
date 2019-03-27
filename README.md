@@ -1,6 +1,6 @@
 muttrc
 
-Use .bash_profile to set:
+Use following variables in .bash_profile to set:
 
 * ME: Full name
 * MAIL_ACCT_1: One email account (e.g. account@example.com)
